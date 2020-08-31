@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/checkbox_checked.png</file>
+        <file>resource/checkbox_hover.png</file>
+        <file>resource/checkbox_unchecked.png</file>
+        <file>resource/delete.png</file>
+        <file>resource/down.png</file>
+        <file>resource/memo.png</file>
+        <file>resource/memo_outline.png</file>
+        <file>resource/reminder.png</file>
+        <file>resource/reminder_outline.png</file>
+        <file>resource/style.css</file>
+        <file>resource/todo.png</file>
+        <file>resource/todo_outline.png</file>
+    </qresource>
+</RCC>
