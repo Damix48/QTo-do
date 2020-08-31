@@ -144,9 +144,6 @@ void Controller::itemSender(Item* item_, int index_, SendTo edit) {
 }
 
 void Controller::sendItems() {
-  // for (std::vector<Item*>::const_iterator it = items.begin(); it != items.end(); ++it) {
-  //   itemSender(*it, it - items.begin(), SendTo::List);
-  // }
   int index = 0;
   for (MyVector<Item*>::Iterator it = items.begin(); it != items.end(); ++it) {
     itemSender(*it, index, SendTo::List);
@@ -160,8 +157,6 @@ void Controller::sendItemSelected() {
 
 void Controller::onReceivedSavedToDo(QString title_) {
   if (selectedIndex == -1) {
-    // items.push_back(new ToDo(title_.toStdString()));
-    // selectedIndex = items.size() - 1;
     items.Push(new ToDo(title_.toStdString()));
     selectedIndex = items.GetSize() - 1;
   } else {
@@ -180,8 +175,6 @@ void Controller::onReceivedSavedToDo(QString title_) {
 
 void Controller::onReceivedSavedMemo(QString title_, QString description_) {
   if (selectedIndex == -1) {
-    // items.push_back(new Memo(title_.toStdString(), description_.toStdString()));
-    // selectedIndex = items.size() - 1;
     items.Push(new Memo(title_.toStdString(), description_.toStdString()));
     selectedIndex = items.GetSize() - 1;
   } else {
@@ -201,8 +194,6 @@ void Controller::onReceivedSavedMemo(QString title_, QString description_) {
 
 void Controller::onReceivedSavedReminder(QString title_, QDate date_) {
   if (selectedIndex == -1) {
-    // items.push_back(new Reminder(title_.toStdString(), date_.day(), date_.month(), date_.year()));
-    // selectedIndex = items.size() - 1;
     items.Push(new Reminder(title_.toStdString(), date_.day(), date_.month(), date_.year()));
     selectedIndex = items.GetSize() - 1;
   } else {
@@ -222,8 +213,6 @@ void Controller::onReceivedSavedReminder(QString title_, QDate date_) {
 
 void Controller::onReceivedSavedMemoToDo(QString title_, QString description_) {
   if (selectedIndex == -1) {
-    // items.push_back(new MemoToDo(title_.toStdString(), description_.toStdString()));
-    // selectedIndex = items.size() - 1;
     items.Push(new MemoToDo(title_.toStdString(), description_.toStdString()));
     selectedIndex = items.GetSize() - 1;
   } else {
@@ -243,8 +232,6 @@ void Controller::onReceivedSavedMemoToDo(QString title_, QString description_) {
 
 void Controller::onReceivedSavedToDoReminder(QString title_, QDate date_) {
   if (selectedIndex == -1) {
-    // items.push_back(new ToDoReminder(title_.toStdString(), date_.day(), date_.month(), date_.year()));
-    // selectedIndex = items.size() - 1;
     items.Push(new ToDoReminder(title_.toStdString(), date_.day(), date_.month(), date_.year()));
     selectedIndex = items.GetSize() - 1;
   } else {
@@ -277,8 +264,6 @@ void Controller::onAddNewItemButtonClicked() {
 }
 
 void Controller::onDeleteItemButtonClicked() {
-  // delete items[selectedIndex];
-  // items.erase(items.begin() + selectedIndex);
   items.Pop(selectedIndex);
   emit deleteItem(selectedIndex);
   selectedIndex = -1;
@@ -297,7 +282,6 @@ void Controller::saveXML() {
 
   xmlWriter.writeStartElement("Items");
 
-  // for (std::vector<Item*>::iterator it = items.begin(); it != items.end(); ++it) {
   for (MyVector<Item*>::Iterator it = items.begin(); it != items.end(); ++it) {
     xmlWriter.writeStartElement("Item");
     xmlWriter.writeAttribute("type", convertType((*it)->getType()));
@@ -349,7 +333,7 @@ void Controller::openXML() {
                   xmlReader.skipCurrentElement();
                 }
               }
-              // items.push_back(new ToDo(title_.toStdString(), checked_));
+
               items.Push(new ToDo(title_.toStdString(), checked_));
               break;
             }
@@ -367,7 +351,7 @@ void Controller::openXML() {
                   xmlReader.skipCurrentElement();
                 }
               }
-              // items.push_back(new Memo(title_.toStdString(), description_.toStdString()));
+
               items.Push(new Memo(title_.toStdString(), description_.toStdString()));
               break;
             }
@@ -385,7 +369,7 @@ void Controller::openXML() {
                   xmlReader.skipCurrentElement();
                 }
               }
-              // items.push_back(new Reminder(title_.toStdString(), date_.day(), date_.month(), date_.year()));
+
               items.Push(new Reminder(title_.toStdString(), date_.day(), date_.month(), date_.year()));
               break;
             }
@@ -406,7 +390,7 @@ void Controller::openXML() {
                   xmlReader.skipCurrentElement();
                 }
               }
-              // items.push_back(new MemoToDo(title_.toStdString(), description_.toStdString(), checked_));
+
               items.Push(new MemoToDo(title_.toStdString(), description_.toStdString(), checked_));
               break;
             }
@@ -427,7 +411,7 @@ void Controller::openXML() {
                   xmlReader.skipCurrentElement();
                 }
               }
-              // items.push_back(new ToDoReminder(title_.toStdString(), date_.day(), date_.month(), date_.year(), checked_));
+
               items.Push(new ToDoReminder(title_.toStdString(), date_.day(), date_.month(), date_.year(), checked_));
               break;
             }
@@ -488,7 +472,6 @@ Item::Type Controller::convertType(QString type_) {
 }
 
 void Controller::checkReminder() {
-  // for (std::vector<Item*>::iterator it = items.begin(); it != items.end(); ++it) {
   for (MyVector<Item*>::Iterator it = items.begin(); it != items.end(); ++it) {
     if (Reminder* temp_ = dynamic_cast<Reminder*>(*it)) {
       if (temp_->passed()) {
