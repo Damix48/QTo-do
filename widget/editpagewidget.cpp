@@ -1,7 +1,6 @@
 #include "editpagewidget.h"
 
 #include <QDateEdit>
-#include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
@@ -105,8 +104,6 @@ void EditPageWidget::onReceivedType(Item::Type type_) {
 
   saveButton->setEnabled(true);
   onEditTitleChanged();
-
-  qInfo() << type_;
 
   switch (type) {
     case Item::Type::ToDo:

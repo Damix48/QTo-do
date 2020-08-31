@@ -3,7 +3,9 @@
 #include <QIcon>
 #include <QString>
 
-SelectButton::SelectButton(const QString &text, const QIcon &icon_outline_, const QIcon &icon_, QWidget *parent) : icon_outline(icon_outline_), icon(icon_), QToolButton(parent) {
+SelectButton::SelectButton(const QString &text, const QIcon &icon_outline_, const QIcon &icon_, QWidget *parent) : QToolButton(parent),
+                                                                                                                   icon_outline(icon_outline_),
+                                                                                                                   icon(icon_) {
   setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
   setText(text);
   setIcon(icon_outline);

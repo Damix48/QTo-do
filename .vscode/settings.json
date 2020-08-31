@@ -57,6 +57,7 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "qstring": "cpp"
+    "qstring": "cpp",
+    "qcheckbox": "cpp"
   }
 }

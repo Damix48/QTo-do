@@ -1,7 +1,6 @@
 #include "controller.h"
 
 #include <QDate>
-#include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -19,8 +18,8 @@
 
 Controller::Controller(MainWindow* view_, QObject* parent) : QObject(parent),
                                                              view(view_),
-                                                             selectedIndex(-1),
                                                              items(MyVector<Item*>()),
+                                                             selectedIndex(-1),
                                                              timer(new QTimer()) {
   openXML();
 

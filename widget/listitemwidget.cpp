@@ -1,7 +1,6 @@
 #include "listitemwidget.h"
 
 #include <QButtonGroup>
-#include <QDebug>
 #include <QList>
 #include <QScrollArea>
 #include <QVBoxLayout>
@@ -24,13 +23,11 @@ ListItemWidget::ListItemWidget(QWidget *parent) : QWidget(parent),
   area->setWidgetResizable(true);
   area->setWidget(widget);
 
-  widget->setObjectName("listArea2");
   widget->setLayout(listLayout);
 
   listLayout->setAlignment(Qt::AlignTop);
   listLayout->setMargin(4);
   listLayout->setSpacing(4);
-  listLayout->setObjectName("listLayout2");
 
   listItems->setExclusive(true);
 
@@ -60,7 +57,6 @@ void ListItemWidget::addItemWidget(int index_, ItemWidget *item) {
 }
 
 void ListItemWidget::onItemWidgetClicked(Item::Type type_) {
-  qInfo() << "id: " << listItems->checkedId();
   emit sendItemIndexSelected(listItems->checkedId());
 
   emit sendItemType(type_);
@@ -72,7 +68,6 @@ void ListItemWidget::onItemWidgetCheckBoxToggled() {
   for (QList<QAbstractButton *>::iterator it = list_.begin(); it != list_.end(); ++it) {
     ItemToDoWidget *temp = dynamic_cast<ItemToDoWidget *>(*it);
     if (temp != nullptr && temp->isCheckBoxChanged()) {
-      // qInfo() << listItems->id((*it));
       emit sendItemIndexChechBoxToggled(listItems->id((*it)));
     }
   }

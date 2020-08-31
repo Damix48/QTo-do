@@ -2,7 +2,6 @@
 
 #include <QAbstractButton>
 #include <QCheckBox>
-#include <QDebug>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -18,7 +17,7 @@
 
 ItemWidget::ItemWidget(QString title_, QWidget *parent) : title(title_),
                                                           titleLabel(new QLabel),
-                                                          mainLayout(new QHBoxLayout()),
+                                                          mainLayout(new QHBoxLayout(parent)),
                                                           layout(new QVBoxLayout()) {}
 
 void ItemWidget::setCommon() {
@@ -58,7 +57,7 @@ void ItemWidget::setSelected(bool sel) {
 }
 
 /* TODO */
-ItemToDoWidget::ItemToDoWidget(QString title_, bool checked_, QWidget *parent) : ItemWidget(title_),
+ItemToDoWidget::ItemToDoWidget(QString title_, bool checked_, QWidget *parent) : ItemWidget(title_, parent),
                                                                                  checkbox(new QCheckBox()),
                                                                                  checked(checked_),
                                                                                  changed(false) {
@@ -104,7 +103,7 @@ bool ItemToDoWidget::isCheckBoxChanged() {
 }
 
 /* MEMO */
-ItemMemoWidget::ItemMemoWidget(QString title_, QString description_, QWidget *parent) : ItemWidget(title_),
+ItemMemoWidget::ItemMemoWidget(QString title_, QString description_, QWidget *parent) : ItemWidget(title_, parent),
                                                                                         description(description_),
                                                                                         descriptionLabel(new QLabel()) {
   setTitle();
@@ -127,7 +126,7 @@ void ItemMemoWidget::onItemSelected() {
 }
 
 /* REMINDER */
-ItemReminderWidget::ItemReminderWidget(QString title_, QDate date_, QWidget *parent) : ItemWidget(title_),
+ItemReminderWidget::ItemReminderWidget(QString title_, QDate date_, QWidget *parent) : ItemWidget(title_, parent),
                                                                                        date(date_),
                                                                                        dateLabel(new QLabel) {
   setTitle();
@@ -146,7 +145,7 @@ void ItemReminderWidget::onItemSelected() {
 }
 
 /* TODOREMINDER */
-ItemToDoReminderWidget::ItemToDoReminderWidget(QString title_, QDate date_, bool checked_, QWidget *parent) : ItemToDoWidget(title_, checked_),
+ItemToDoReminderWidget::ItemToDoReminderWidget(QString title_, QDate date_, bool checked_, QWidget *parent) : ItemToDoWidget(title_, checked_, parent),
                                                                                                               date(date_),
                                                                                                               dateLabel(new QLabel()) {
   dateLabel->setObjectName("date");
@@ -172,7 +171,7 @@ void ItemToDoReminderWidget::strikethrough() {
 }
 
 /* MEMOTODO */
-ItemMemoToDoWidget::ItemMemoToDoWidget(QString title_, QString description_, bool checked_, QWidget *parent) : ItemToDoWidget(title_, checked_),
+ItemMemoToDoWidget::ItemMemoToDoWidget(QString title_, QString description_, bool checked_, QWidget *parent) : ItemToDoWidget(title_, checked_, parent),
                                                                                                                description(description_),
                                                                                                                descriptionLabel(new QLabel()) {
   setTitle();
