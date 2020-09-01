@@ -20,10 +20,6 @@ std::string Memo::getFullDescription() const {
   return description;
 }
 
-Memo* Memo::clone() {
-  return new Memo(*this);
-}
-
 Item::Type Memo::getType() const {
   return Item::Type::Memo;
 }

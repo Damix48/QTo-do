@@ -40,7 +40,6 @@ class Reminder : virtual public Item {
   bool passed() const;
   void changeDate(int, int, int);
   Date getDate() const;
-  virtual Reminder* clone() override;
 
   virtual Item::Type getType() const override;
 

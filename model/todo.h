@@ -12,7 +12,6 @@ class ToDo : virtual public Item {
  public:
   ToDo(std::string, bool = false);
   void toggle();
-  virtual ToDo* clone() override;
 
   bool getChecked() const;
 

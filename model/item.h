@@ -24,8 +24,6 @@ class Item {
   void changeTitle(std::string);
   std::string getTitle() const;
 
-  virtual Item* clone() = 0;
-
   virtual Item::Type getType() const = 0;
 
   Item& operator=(const Item&) = default;  //warning: defaulted move assignment for 'ToDo' calls a non-trivial move assignment operator for virtual base 'Item' [-Wvirtual-move-assign]

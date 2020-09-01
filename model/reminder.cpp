@@ -17,10 +17,6 @@ bool Reminder::passed() const {
   return date <= Date();
 }
 
-Reminder* Reminder::clone() {
-  return new Reminder(*this);
-}
-
 Item::Type Reminder::getType() const {
   return Item::Type::Reminder;
 }

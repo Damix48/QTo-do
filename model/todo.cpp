@@ -10,10 +10,6 @@ bool ToDo::getChecked() const {
   return checked;
 }
 
-ToDo* ToDo::clone() {
-  return new ToDo(*this);
-}
-
 Item::Type ToDo::getType() const {
   return Item::Type::ToDo;
 }

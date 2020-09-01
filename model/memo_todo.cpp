@@ -8,10 +8,6 @@ MemoToDo::MemoToDo(std::string title_, std::string description_, bool checked_) 
                                                                                   Memo(title_, description_),
                                                                                   ToDo(title_, checked_) {}
 
-MemoToDo* MemoToDo::clone() {
-  return new MemoToDo(*this);
-}
-
 Item::Type MemoToDo::getType() const {
   return Item::Type::MemoToDo;
 }
