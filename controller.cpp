@@ -23,41 +23,44 @@ Controller::Controller(MainWindow* view_, QObject* parent) : QObject(parent),
                                                              timer(new QTimer()) {
   openXML();
 
-  connect(this, SIGNAL(sendDeselect()), view->getListItemWidget(), SLOT(onReceiveDeselect()));
+  ListItemWidget* listItemWidget_toConnect = view->getListItemWidget();
+  EditPageWidget* editPageWidget_toConnect = view->getEditPageWidget();
 
-  connect(view->getListItemWidget(), SIGNAL(sendItemIndexSelected(int)), this, SLOT(onReceiveItemIndexSelected(int)));
-  connect(view->getListItemWidget(), SIGNAL(sendItemIndexChechBoxToggled(int)), this, SLOT(onReceiveItemIndexChechBoxToggled(int)));
+  connect(this, SIGNAL(sendDeselect()), listItemWidget_toConnect, SLOT(onReceiveDeselect()));
 
-  connect(view->getEditPageWidget(), SIGNAL(addNewItem()), this, SLOT(onAddNewItemButtonClicked()));
-  connect(view->getEditPageWidget(), SIGNAL(deleteItem()), this, SLOT(onDeleteItemButtonClicked()));
+  connect(listItemWidget_toConnect, SIGNAL(sendItemIndexSelected(int)), this, SLOT(onReceiveItemIndexSelected(int)));
+  connect(listItemWidget_toConnect, SIGNAL(sendItemIndexChechBoxToggled(int)), this, SLOT(onReceiveItemIndexChechBoxToggled(int)));
 
-  connect(this, SIGNAL(deleteItem(int)), view->getListItemWidget(), SLOT(onDeleteItem(int)));
+  connect(editPageWidget_toConnect, SIGNAL(addNewItem()), this, SLOT(onAddNewItemButtonClicked()));
+  connect(editPageWidget_toConnect, SIGNAL(deleteItem()), this, SLOT(onDeleteItemButtonClicked()));
 
-  connect(this, SIGNAL(sendTitleInformation(QString)), view->getEditPageWidget(), SLOT(receivedTitleInformation(QString)));
-  connect(this, SIGNAL(sendDescriptionInformation(QString)), view->getEditPageWidget(), SLOT(receivedDescriptionInformation(QString)));
-  connect(this, SIGNAL(sendDateInformation(QDate)), view->getEditPageWidget(), SLOT(receivedDateInformation(QDate)));
+  connect(this, SIGNAL(deleteItem(int)), listItemWidget_toConnect, SLOT(onDeleteItem(int)));
 
-  connect(this, SIGNAL(sendToDoInformation(int, QString, bool)), view->getListItemWidget(), SLOT(receivedToDoInformation(int, QString, bool)));
-  connect(this, SIGNAL(sendMemoInformation(int, QString, QString)), view->getListItemWidget(), SLOT(receivedMemoInformation(int, QString, QString)));
-  connect(this, SIGNAL(sendReminderInformation(int, QString, QDate)), view->getListItemWidget(), SLOT(receivedReminderInformation(int, QString, QDate)));
-  connect(this, SIGNAL(sendMemoToDoInformation(int, QString, QString, bool)), view->getListItemWidget(), SLOT(receivedMemoToDoInformation(int, QString, QString, bool)));
-  connect(this, SIGNAL(sendToDoReminderInformation(int, QString, QDate, bool)), view->getListItemWidget(), SLOT(receivedToDoReminderInformation(int, QString, QDate, bool)));
+  connect(this, SIGNAL(sendTitleInformation(QString)), editPageWidget_toConnect, SLOT(receivedTitleInformation(QString)));
+  connect(this, SIGNAL(sendDescriptionInformation(QString)), editPageWidget_toConnect, SLOT(receivedDescriptionInformation(QString)));
+  connect(this, SIGNAL(sendDateInformation(QDate)), editPageWidget_toConnect, SLOT(receivedDateInformation(QDate)));
+
+  connect(this, SIGNAL(sendToDoInformation(int, QString, bool)), listItemWidget_toConnect, SLOT(receivedToDoInformation(int, QString, bool)));
+  connect(this, SIGNAL(sendMemoInformation(int, QString, QString)), listItemWidget_toConnect, SLOT(receivedMemoInformation(int, QString, QString)));
+  connect(this, SIGNAL(sendReminderInformation(int, QString, QDate)), listItemWidget_toConnect, SLOT(receivedReminderInformation(int, QString, QDate)));
+  connect(this, SIGNAL(sendMemoToDoInformation(int, QString, QString, bool)), listItemWidget_toConnect, SLOT(receivedMemoToDoInformation(int, QString, QString, bool)));
+  connect(this, SIGNAL(sendToDoReminderInformation(int, QString, QDate, bool)), listItemWidget_toConnect, SLOT(receivedToDoReminderInformation(int, QString, QDate, bool)));
 
   connect(this, SIGNAL(sendReminderDialog(QString, QDate)), view, SLOT(onReminderDialog(QString, QDate)));
 
-  connect(view->getEditPageWidget(), SIGNAL(saveToDo(QString)), this, SLOT(onReceivedSavedToDo(QString)));
-  connect(view->getEditPageWidget(), SIGNAL(saveMemo(QString, QString)), this, SLOT(onReceivedSavedMemo(QString, QString)));
-  connect(view->getEditPageWidget(), SIGNAL(saveReminder(QString, QDate)), this, SLOT(onReceivedSavedReminder(QString, QDate)));
-  connect(view->getEditPageWidget(), SIGNAL(saveMemoToDo(QString, QString)), this, SLOT(onReceivedSavedMemoToDo(QString, QString)));
-  connect(view->getEditPageWidget(), SIGNAL(saveToDoReminder(QString, QDate)), this, SLOT(onReceivedSavedToDoReminder(QString, QDate)));
+  connect(editPageWidget_toConnect, SIGNAL(saveToDo(QString)), this, SLOT(onReceivedSavedToDo(QString)));
+  connect(editPageWidget_toConnect, SIGNAL(saveMemo(QString, QString)), this, SLOT(onReceivedSavedMemo(QString, QString)));
+  connect(editPageWidget_toConnect, SIGNAL(saveReminder(QString, QDate)), this, SLOT(onReceivedSavedReminder(QString, QDate)));
+  connect(editPageWidget_toConnect, SIGNAL(saveMemoToDo(QString, QString)), this, SLOT(onReceivedSavedMemoToDo(QString, QString)));
+  connect(editPageWidget_toConnect, SIGNAL(saveToDoReminder(QString, QDate)), this, SLOT(onReceivedSavedToDoReminder(QString, QDate)));
 
-  connect(this, SIGNAL(sendItemType(Item::Type)), view->getEditPageWidget(), SIGNAL(passItemType(Item::Type)));
+  connect(this, SIGNAL(sendItemType(Item::Type)), editPageWidget_toConnect, SIGNAL(passItemType(Item::Type)));
 
   sendItems();
   emit sendDeselect();
 
   connect(timer, SIGNAL(timeout()), this, SLOT(checkReminder()));
-  timer->start(QDateTime::currentDateTime().msecsTo(QDateTime(QDate::currentDate().addDays(1), QTime(0, 1))));
+  timer->start(QDateTime::currentDateTime().msecsTo(QDateTime(QDate::currentDate().addDays(1), QTime(0, 0))));
 }
 
 void Controller::onReceiveItemIndexSelected(int index_) {
@@ -310,6 +313,7 @@ void Controller::saveXML() {
 
 void Controller::openXML() {
   QFile file("./data.xml");
+
   if (!file.open(QFile::ReadOnly | QFile::Text))
     return;
 
@@ -488,5 +492,5 @@ void Controller::checkReminder() {
   }
 
   timer->stop();
-  timer->start(QDateTime::currentDateTime().msecsTo(QDateTime(QDate::currentDate().addDays(1), QTime(0, 1))));
+  timer->start(QDateTime::currentDateTime().msecsTo(QDateTime(QDate::currentDate().addDays(1), QTime(0, 0))));
 }
