@@ -11,5 +11,3 @@ MemoToDo::MemoToDo(std::string title_, std::string description_, bool checked_) 
 Item::Type MemoToDo::getType() const {
   return Item::Type::MemoToDo;
 }
-
-MemoToDo::~MemoToDo() = default;

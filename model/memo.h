@@ -16,8 +16,6 @@ class Memo : virtual public Item {
   std::string getFullDescription() const;
 
   virtual Item::Type getType() const override;
-
-  virtual ~Memo() override;
 };
 
 #endif  // MEMO_H

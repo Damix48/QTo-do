@@ -37,7 +37,9 @@ class MyVector {
 };
 
 template <class T>
-MyVector<T>::MyVector() : vect(nullptr), Size(0), Capacity(0) {}
+MyVector<T>::MyVector() : vect(nullptr),
+                          Size(0),
+                          Capacity(0) {}
 
 template <class T>
 MyVector<T>::~MyVector() {

@@ -1,6 +1,7 @@
 #include "memo.h"
 
-Memo::Memo(std::string title_, std::string description_) : Item(title_), description(description_) {}
+Memo::Memo(std::string title_, std::string description_) : Item(title_),
+                                                           description(description_) {}
 
 void Memo::changeDescription(std::string description_) {
   description = description_;
@@ -23,5 +24,3 @@ std::string Memo::getFullDescription() const {
 Item::Type Memo::getType() const {
   return Item::Type::Memo;
 }
-
-Memo::~Memo() = default;

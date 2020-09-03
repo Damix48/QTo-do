@@ -16,8 +16,6 @@ class ToDo : virtual public Item {
   bool getChecked() const;
 
   virtual Item::Type getType() const override;
-
-  virtual ~ToDo() override;
 };
 
 #endif  // TODO_H

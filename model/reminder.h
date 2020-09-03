@@ -42,8 +42,6 @@ class Reminder : virtual public Item {
   Date getDate() const;
 
   virtual Item::Type getType() const override;
-
-  virtual ~Reminder() override;
 };
 
 #endif  // REMINDER_H

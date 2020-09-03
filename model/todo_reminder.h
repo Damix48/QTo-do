@@ -12,8 +12,6 @@ class ToDoReminder : public ToDo, public Reminder {
   ToDoReminder(std::string, int, int, int, bool = false);
 
   Item::Type getType() const override;
-
-  ~ToDoReminder() override;
 };
 
 #endif  // TODO_REMINDER_H

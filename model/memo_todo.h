@@ -12,8 +12,6 @@ class MemoToDo : public Memo, public ToDo {
   MemoToDo(std::string, std::string, bool = false);
 
   Item::Type getType() const override;
-
-  ~MemoToDo() override;
 };
 
 #endif  // MEMOTODO_H

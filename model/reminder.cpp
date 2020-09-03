@@ -21,8 +21,6 @@ Item::Type Reminder::getType() const {
   return Item::Type::Reminder;
 }
 
-Reminder::~Reminder() = default;
-
 /* DATE */
 Date::Date(int day_, int month_, int year_) {
   if (isValid(day_, month_, year_)) {
